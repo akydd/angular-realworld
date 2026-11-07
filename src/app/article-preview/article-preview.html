@@ -1,0 +1,22 @@
+ <div class="article-preview">
+  <div class="article-meta">
+    <a routerLink="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+    <div class="info">
+      <a routerLink="/profile/eric-simons" class="author">{{ articlePreview().author.username }}</a>
+      <span class="date">{{ articlePreview().createdAt | date }}</span>
+    </div>
+    <button class="btn btn-outline-primary btn-sm pull-xs-right">
+      <i class="ion-heart"></i> {{ articlePreview().favoritesCount }}
+    </button>
+  </div>
+  <a href="/article/how-to-build-webapps-that-scale" class="preview-link">
+    <h1>{{ articlePreview().title }}</h1>
+    <p>{{ articlePreview().description }}</p>
+    <span>Read more...</span>
+    <ul class="tag-list">
+      @for (tag of articlePreview().tagList; track tag) {
+        <li class="tag-default tag-pill tag-outline">{{ tag }}</li>
+      }
+    </ul>
+  </a>
+</div>

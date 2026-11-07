@@ -1,0 +1,7 @@
+<p>Popular Tags</p>
+
+<div class="tag-list">
+  @for (tag of tagsService.tagList.value()?.tags; track tag) {
+     <a href="" class="tag-pill tag-default">{{ tag }}</a>
+  }
+</div>
