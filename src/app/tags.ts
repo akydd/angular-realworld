@@ -1,5 +1,6 @@
 import { httpResource } from '@angular/common/http';
 import { Service } from '@angular/core';
+import { environment } from '../environments/environment';
 
 export interface TagList {
         tags: string[]
@@ -7,6 +8,5 @@ export interface TagList {
 
 @Service()
 export class Tags {
-        private readonly baseUrl = 'http://localhost:8080/api';
-        tagList = httpResource<TagList>(() => `${this.baseUrl}/tags`);
+        tagList = httpResource<TagList>(() => `${environment.apiUrl}/tags`);
 }

@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, inject, input, computed } from '@angular/core';
+import { Profile as ProfileService } from '../profile';
 
 @Component({
         imports: [],
@@ -7,11 +7,9 @@ import { ActivatedRoute } from '@angular/router';
         templateUrl: './profile.html',
 })
 export class Profile {
-        readonly username: string | null;
-        private route = inject(ActivatedRoute);
+        readonly username = input.required<string>();
+        private profileService = inject(ProfileService);
 
-        constructor() {
-                this.username = this.route.snapshot.paramMap.get('username');
-        }
-
+        readonly resource = this.profileService.getByUsername(this.username);
+        readonly profile = computed(() => this.resource.value()?.profile);
 }
