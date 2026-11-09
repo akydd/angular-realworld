@@ -7,11 +7,12 @@ export const JWT_KEY = 'real_api_jwt';
 
 /**
  * This service handles the following:
+ *
  * 1. After a siccessful login
  *    a. Store the returned user in a signal
  *    b. Persist the user's JWT token in localstorage
  *
- * 2. On startup
+ * 2. On startup (called by provideAppInitilizer in app.config)
  *    a. Check for jwt token in localstorage
  *    b. If the token is there, fetch the user and set the signal
  */
@@ -29,23 +30,17 @@ export class Auth {
                 localStorage.setItem(JWT_KEY, user.token);
         }
 
-        autoLogin() {
+        async autoLogin(): Promise<void> {
                 const token = localStorage.getItem(JWT_KEY);
                 if (!token) {
                         return
                 }
 
-                // This is not an async function, so we use traditional promise chaining.
-                firstValueFrom(this.userService.getUser())
-                        .then(userResponse => {
-                                this.setUser(userResponse.user);
-                        })
-                        .catch(err => {
-                                console.log(err);
-                        });
-        }
-
-        constructor() {
-                this.autoLogin();
+                try {
+                        const userResponse = await firstValueFrom(this.userService.getUser())
+                        this.setUser(userResponse.user);
+                } catch (err) {
+                        console.log(err);
+                };
         }
 }
