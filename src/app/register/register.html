@@ -16,14 +16,35 @@
         <form [formRoot]="registerForm">
           <fieldset class="form-group">
             <input [formField]="registerForm.username" class="form-control form-control-lg" type="text" placeholder="Username" />
+            @if (registerForm.username().errors().length > 0 && registerForm.username().touched()) {
+            <ul class="error-messages">
+              @for (err of registerForm.username().errors(); track err.kind) {
+                 <li>{{ err.message }}</li>
+              }
+            </ul>
+            }
           </fieldset>
           <fieldset class="form-group">
             <input [formField]="registerForm.email" class="form-control form-control-lg" type="text" placeholder="Email" />
+            @if (registerForm.email().errors().length > 0 && registerForm.email().touched()) {
+            <ul class="error-messages">
+              @for (err of registerForm.email().errors(); track err.kind) {
+                 <li>{{ err.message }}</li>
+              }
+            </ul>
+            }
           </fieldset>
           <fieldset class="form-group">
             <input [formField]="registerForm.password" class="form-control form-control-lg" type="password" placeholder="Password" />
+            @if (registerForm.password().errors().length > 0 && registerForm.password().touched()) {
+            <ul class="error-messages">
+              @for (err of registerForm.password().errors(); track err.kind) {
+                 <li>{{ err.message }}</li>
+              }
+            </ul>
+            }
           </fieldset>
-          <button type="submit" class="btn btn-lg btn-primary pull-xs-right">Sign up</button>
+          <button [disabled]="registerForm().invalid() || registerForm().submitting()" type="submit" class="btn btn-lg btn-primary pull-xs-right">Sign up</button>
         </form>
       </div>
     </div>
