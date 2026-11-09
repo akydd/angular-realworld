@@ -13,11 +13,25 @@
 
         <form [formRoot]="loginForm">
           <fieldset class="form-group">
-            <input [formField]="loginForm.username" class="form-control form-control-lg" type="text" placeholder="Email" />
+            <input [formField]="loginForm.email" class="form-control form-control-lg" type="text" placeholder="Email" />
+            @if (loginForm.email().errors().length > 0 && loginForm.email().touched()) {
+            <ul class="error-messages">
+              @for (err of loginForm.email().errors(); track err.kind) {
+                 <li>{{ err.message }}</li>
+              }
+            </ul>
+            }
           </fieldset>
           <fieldset class="form-group">
             <input [formField]="loginForm.password" class="form-control form-control-lg" type="password" placeholder="Password" />
           </fieldset>
+            @if (loginForm.password().errors().length > 0 && loginForm.password().touched()) {
+            <ul class="error-messages">
+              @for (err of loginForm.password().errors(); track err.kind) {
+                 <li>{{ err.message }}</li>
+              }
+            </ul>
+            }
           <button [disabled]="loginForm().invalid() || loginForm().submitting()" class="btn btn-lg btn-primary pull-xs-right">Sign in</button>
         </form>
       </div>

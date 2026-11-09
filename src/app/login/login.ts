@@ -4,6 +4,7 @@ import { UsersClient } from '../users-client';
 import { form, FormField, FormRoot, required } from '@angular/forms/signals';
 import { LoginData } from '../models/users';
 import { firstValueFrom } from 'rxjs';
+import { Auth } from '../auth';
 
 @Component({
         imports: [RouterLink, FormRoot, FormField],
@@ -12,21 +13,23 @@ import { firstValueFrom } from 'rxjs';
 })
 export class Login {
         private readonly usersService = inject(UsersClient);
+        private readonly authService = inject(Auth);
         private readonly router = inject(Router);
 
-        model = signal({ username: '', password: '' });
+        model = signal({ email: '', password: '' });
 
         loginForm = form<LoginData>(
                 this.model,
                 (path) => {
-                        required(path.username, { message: 'Username is required' });
+                        required(path.email, { message: 'Email is required' });
                         required(path.password, { message: 'Password is required' });
                 },
                 {
                         submission: {
                                 action: async (field) => {
                                         try {
-                                                await firstValueFrom(this.usersService.login({ user: field().value() }));
+                                                const user = await firstValueFrom(this.usersService.login({ user: field().value() }));
+                                                this.authService.setToken(user.user.token);
                                                 this.router.navigate(['/']);
                                         } catch (err) {
                                                 console.log(err);
