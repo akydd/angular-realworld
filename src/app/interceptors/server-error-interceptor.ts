@@ -2,6 +2,11 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
 import { ErrorResponse } from '../models/error';
 
+
+/**
+ * Translates all server errors (from non-2XX responses) into a common error
+ * format, ErrorResponse.
+ */
 export const serverErrorInterceptor: HttpInterceptorFn = (req, next) => {
         return next(req).pipe(
                 catchError((err: unknown) => {
@@ -10,10 +15,11 @@ export const serverErrorInterceptor: HttpInterceptorFn = (req, next) => {
                                         return throwError(() => err.error as ErrorResponse);
 
                                 }
-                                return throwError(() => { errors: { server: [err.message] } });
+
+                                return throwError(() => ({ errors: { server: [err.message] } }));
                         }
 
-                        return throwError(() => { errors: { unknown: [err] } });
+                        return throwError(() => ({ errors: { unknown: [err] } }));
                 })
         );
 }

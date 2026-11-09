@@ -29,7 +29,7 @@ export class Login {
                                 action: async (field) => {
                                         try {
                                                 const user = await firstValueFrom(this.usersService.login({ user: field().value() }));
-                                                this.authService.setToken(user.user.token);
+                                                this.authService.setUser(user.user);
                                                 this.router.navigate(['/']);
                                         } catch (err) {
                                                 console.log(err);
