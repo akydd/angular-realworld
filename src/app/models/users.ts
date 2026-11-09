@@ -19,3 +19,12 @@ export interface RegisterUserData {
 export interface RegisterUserRequest {
         user: RegisterUserData
 }
+
+export interface LoginData {
+        username: string,
+        password: string,
+}
+
+export interface LoginRequest {
+        user: LoginData,
+}

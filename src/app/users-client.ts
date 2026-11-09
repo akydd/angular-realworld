@@ -2,7 +2,7 @@ import { Service, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
-import { RegisterUserRequest, UserResponse } from './models/users';
+import { LoginRequest, RegisterUserRequest, UserResponse } from './models/users';
 
 @Service()
 export class UsersClient {
@@ -13,4 +13,7 @@ export class UsersClient {
                 return this.http.post<UserResponse>(this.baseUrl, data);
         }
 
+        login(data: LoginRequest): Observable<UserResponse> {
+                return this.http.post<UserResponse>(`${this.baseUrl}/login`, data);
+        }
 }
