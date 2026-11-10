@@ -3,14 +3,14 @@
     <a class="navbar-brand" href="/">conduit</a>
     <ul class="nav navbar-nav pull-xs-right">
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/">Home</a>
+        <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="['']">Home</a>
       </li>
       @if (!isLoggedIn()) {
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/login">Sign in</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/login']">Sign in</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="/register">Sign up</a>
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/register']">Sign up</a>
       </li>
       } @else {
       <li class="nav-item">
@@ -20,9 +20,9 @@
         <a class="nav-link" routerLinkActive="active" href="/settings"> <i class="ion-gear-a"></i>&nbsp;Settings </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLinkActive="active" routerLink="['/profile', 'eric-simons']">
+        <a class="nav-link" routerLinkActive="active" [routerLink]="['/profile', currentUser()?.username]">
           <img src="" class="user-pic" />
-          Eric Simons
+          {{ currentUser()?.username }}
         </a>
       </li>
       }

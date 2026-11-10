@@ -20,6 +20,7 @@ export const JWT_KEY = 'real_api_jwt';
 @Service()
 export class Auth {
         private userSignal = signal<User | null>(null);
+        currentUser = this.userSignal.asReadonly();
 
         private userService = inject(UserClient);
 

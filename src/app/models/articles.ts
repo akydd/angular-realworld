@@ -13,7 +13,6 @@ export interface ArticlePreview {
 export interface ArticleList {
         articles: ArticlePreview[],
         articlesCount: number,
-
 }
 
 export interface Author {
@@ -21,4 +20,12 @@ export interface Author {
         bio: string,
         image: string,
         following: boolean,
+}
+
+export interface FullArticle extends ArticlePreview {
+        body: string
+}
+
+export interface SingleArticle {
+        article: FullArticle
 }

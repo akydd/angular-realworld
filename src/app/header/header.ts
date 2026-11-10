@@ -10,4 +10,5 @@ import { Auth } from '../auth';
 export class Header {
         private readonly authService = inject(Auth);
         protected isLoggedIn = this.authService.isLoggedIn;
+        readonly currentUser = this.authService.currentUser;
 }

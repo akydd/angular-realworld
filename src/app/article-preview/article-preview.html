@@ -9,7 +9,7 @@
       <i class="ion-heart"></i> {{ articlePreview().favoritesCount }}
     </button>
   </div>
-  <a href="/article/how-to-build-webapps-that-scale" class="preview-link">
+  <a [routerLink]="['/articles', articlePreview().slug]" class="preview-link">
     <h1>{{ articlePreview().title }}</h1>
     <p>{{ articlePreview().description }}</p>
     <span>Read more...</span>
